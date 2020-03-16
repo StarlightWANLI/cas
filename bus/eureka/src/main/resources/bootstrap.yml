@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: eureka
+server:
+  port: 8010
+
+eureka:
+  instance:
+    hostname: register
+    #客户端收到最后一次心跳后，等待的时间上限  ，默认90
+    lease-expiration-duration-in-seconds: 15
+    #客户端告诉注册中心每隔9s  发送一次信息，默认30
+    lease-renewal-interval-in-seconds: 5
+    #高可用注册中心，一定要使用hostname，而不能使用ip
+   #prefer-ip-address: false
+   #instance-id: ${eureka.instance.hostname}:${server.port}
+  server:
+    enable-self-preservation: false  # 关闭自我保护
+    eviction-interval-timer-in-ms: 5000    #清除失效服务的时间间隔  默认60000   ,每隔2s剔除失效服务
+    responseCacheUpdateIntervalMs: 6000    #eureka server刷新readCacheMap的时间，注意，client读取的是readCacheMap，这个时间决定了多久会把readWriteCacheMap的缓存更新到readCacheMap
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+    #服务缓存清单的更新时间
+    registry-fetch-interval-seconds: 5
+
+
+
+
+
